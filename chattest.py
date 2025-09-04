@@ -50,3 +50,5 @@ if __name__ == "__main__":
         if user_input.lower() in ["exit", "quit"]:  
             break  
         print("ChatGPT:", get_response(user_input))
+
+        

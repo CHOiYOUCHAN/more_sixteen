@@ -12,10 +12,14 @@ const socket = new WebSocket('ws://localhost:8080');
 function displayMessage(text, isOwn = false) {
     const msgDiv = document.createElement('div');
     msgDiv.textContent = text;
+
+    msgDiv.classList.add('message');
     if (isOwn) {
-        msgDiv.style.color = '#09BC8A';
-        msgDiv.style.textAlign = 'right';
+        msgDiv.classList.add('own-message'); 
+    } else {
+        msgDiv.classList.add('other-message'); 
     }
+
     messagesBox.appendChild(msgDiv);
     messagesBox.scrollTop = messagesBox.scrollHeight;
 }
@@ -24,7 +28,6 @@ function sendMessage() {
     const message = chatInput.value.trim();
     if (message && socket.readyState === WebSocket.OPEN) {
         socket.send(message);
-
     }
     displayMessage(message, true);
     chatInput.value = '';
@@ -48,3 +51,4 @@ socket.addEventListener('open', function () {
 socket.addEventListener('close', function () {
     displayMessage('Disconnected from chat server.');
 });
+
